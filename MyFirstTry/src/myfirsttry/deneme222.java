@@ -9,6 +9,11 @@ package myfirsttry;
  *
  * @author ugurcan
  */
-public class deneme222 {
-    
+public class deneme222 extends Deneme1 {
+
+    public deneme222(String name) 
+    {
+        this.denemevar = name;
+    }
+  
 }
