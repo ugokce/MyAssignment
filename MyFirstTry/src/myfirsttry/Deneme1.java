@@ -10,5 +10,5 @@ package myfirsttry;
  * @author ugurcan
  */
 public class Deneme1 {
-    
+    public String denemevar;
 }
