@@ -22,6 +22,12 @@ public class GameManager
     private Color Colors[] = new Color[5];
     private ArrayList<Player> Players = new ArrayList<>();
 
+    private OkeyStone Okey;
+
+    public OkeyStone getOkey() {
+        return Okey;
+    }
+    
     public GameManager() 
     {
         Colors[0]=new Color("Sarı");
@@ -64,8 +70,7 @@ public class GameManager
         
         Collections.shuffle(StoneList);
         
-        
-        
+        this.Okey = SelectOkey();
         
         }
         else
@@ -112,7 +117,7 @@ public class GameManager
              RealOkey.setIsOkey(true);
         }
         
-        return temp;
+       return temp;
         
     }
     
