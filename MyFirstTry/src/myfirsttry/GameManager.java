@@ -22,10 +22,10 @@ public class GameManager
     private Color Colors[] = new Color[5];
     private ArrayList<Player> Players = new ArrayList<>();
 
-    private OkeyStone Okey;
+    private OkeyStone Okey[]= new OkeyStone[2];
 
-    public OkeyStone getOkey() {
-        return Okey;
+    public int getOkeyValue() {
+        return Okey[0].getDeger();
     }
     
     public GameManager() 
@@ -84,7 +84,7 @@ public class GameManager
         
             
     }
-    private OkeyStone SelectOkey()
+    private OkeyStone[] SelectOkey()
     {
         
        
@@ -103,40 +103,44 @@ public class GameManager
         StoneList.remove(temp);
         
         
-        OkeyStone RealOkey;
+        OkeyStone RealOkey[]= new OkeyStone[2];
         
         
         //if our temp stone's value = 13 then our "Okey" must be 1, otherwise we can just take one bigger valued stone as "Okey"
         if(temp.getDeger()==13)
         {
             RealOkey = findStone(temp.getTasRengi(), 1);
-            RealOkey.setIsOkey(true);
+            
         }
         else
         {
              RealOkey = findStone(temp.getTasRengi(), temp.getDeger()+1);
-             RealOkey.setIsOkey(true);
+            
         }
+        RealOkey[0].setIsOkey(true);
+        RealOkey[1].setIsOkey(true);
         
-       return temp;
+       return RealOkey;
         
     }
     
     //I implemented a function to find required stones quickly from "Stone List" with specific properties
-    private OkeyStone findStone(Color stoneColor,int stoneValue)
+    private OkeyStone[] findStone(Color stoneColor,int stoneValue)
     {
-         OkeyStone RealOkey;
+         OkeyStone RealOkey[] = new OkeyStone[2];
+         int i=0;
          for(Iterator<OkeyStone> tas=StoneList.iterator();tas.hasNext();)
             {
-                RealOkey = tas.next();
-                if(RealOkey.getTasRengi() == stoneColor&&RealOkey.getDeger()==stoneValue)
+                RealOkey[i] = tas.next();
+                if(RealOkey[i].getTasRengi() == stoneColor&&RealOkey[i].getDeger()==stoneValue)
                 {
-                   return RealOkey;
+                    RealOkey[i] = tas.next();
+                    i++;
                    
                 }
                 
             }
-         return null;
+         return RealOkey;
         
     }
     
