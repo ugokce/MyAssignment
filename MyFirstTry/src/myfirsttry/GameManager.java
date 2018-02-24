@@ -119,7 +119,7 @@ public class GameManager
         }
         RealOkey[0].setIsOkey(true);
         RealOkey[1].setIsOkey(true);
-        
+        System.out.println("Okey "+ RealOkey[0].getTasRengi().name +" "+RealOkey[0].getDeger());
        return RealOkey;
         
     }
@@ -134,7 +134,7 @@ public class GameManager
             {
                 temp= tas.next();
                 
-                System.out.println(temp.getTasRengi().name+" "+ temp.getDeger());
+                
                 
                 if(temp.getTasRengi() == stoneColor && temp.getDeger()==stoneValue)
                 {
@@ -154,17 +154,21 @@ public class GameManager
     public void DistributeTheStones(int playerNumber)
     {
         String extraStonePlayer = Players.get(playerNumber).getPlayerName();
+        Player tempPlayer;
         for(Iterator<Player> player = Players.iterator();player.hasNext();)
         {
-            
-            if(player.next().getPlayerName() == extraStonePlayer)
+            tempPlayer = player.next();
+            if(tempPlayer.getPlayerName() == extraStonePlayer)
             {
-                player.next().setMyBoard(giveStone(15));
+                
+                tempPlayer.setMyBoard(giveStone(15));
+                System.out.println("Fazlalık taşı"+ tempPlayer.getPlayerName()+" alıyor tam "+tempPlayer.getMyBoard().size()+ " taş" );
                 
             }
             else
             {
-                player.next().setMyBoard(giveStone(14));
+                 tempPlayer.setMyBoard(giveStone(14));
+                 System.out.println(tempPlayer.getPlayerName()+" tam "+tempPlayer.getMyBoard().size()+ " taş" );
             }
             
         }
@@ -176,7 +180,7 @@ public class GameManager
     private ArrayList<OkeyStone> giveStone(int stoneCount)
     {
         ArrayList<OkeyStone> temp = new ArrayList<>();
-        for(int i=0;i<stoneCount+1;i++)
+        for(int i=0;i<stoneCount;i++)
                 {
                     OkeyStone tempStone = StoneList.get(i);
                     temp.add(tempStone);

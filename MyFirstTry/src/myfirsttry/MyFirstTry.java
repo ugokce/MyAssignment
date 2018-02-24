@@ -29,7 +29,7 @@ public class MyFirstTry {
         OyunKontrol.AddPlayer(oyuncu2);
         OyunKontrol.AddPlayer(oyuncu3);
         OyunKontrol.AddPlayer(oyuncu4);
-        OyunKontrol.SetUpGame(1);
+        OyunKontrol.SetUpGame(0);
        
         
         
