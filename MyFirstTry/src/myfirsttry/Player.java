@@ -5,26 +5,22 @@
  */
 package myfirsttry;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ugurcan
  */
-public class MyFirstTry {
+public class Player {
+    public String PlayerName;
+   
+    private OkeyStone myBoard[] = new OkeyStone[15];
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-       
-        
-        
-       
-        
-        
-        
-        
-        
-        
+    public Player(String Name) 
+    {
+    this.PlayerName = Name;
     }
     
-}
+    
+    
+ }
