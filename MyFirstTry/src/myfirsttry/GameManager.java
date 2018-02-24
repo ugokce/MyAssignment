@@ -128,14 +128,20 @@ public class GameManager
     private OkeyStone[] findStone(Color stoneColor,int stoneValue)
     {
          OkeyStone RealOkey[] = new OkeyStone[2];
+         OkeyStone temp;
          int i=0;
          for(Iterator<OkeyStone> tas=StoneList.iterator();tas.hasNext();)
             {
-                RealOkey[i] = tas.next();
-                if(RealOkey[i].getTasRengi() == stoneColor&&RealOkey[i].getDeger()==stoneValue)
+                temp= tas.next();
+                
+                System.out.println(temp.getTasRengi().name+" "+ temp.getDeger());
+                
+                if(temp.getTasRengi() == stoneColor && temp.getDeger()==stoneValue)
                 {
-                    RealOkey[i] = tas.next();
-                    i++;
+                    RealOkey[i] = temp;
+                    i++; 
+                    if(i>=2)
+                        break;
                    
                 }
                 
