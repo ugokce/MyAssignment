@@ -48,8 +48,9 @@ public class GameManager
     public void RemovePlayer(Player player)
     {
         Players.remove(player);
+        System.out.println(player.getPlayerName()+" Removed from game");
     }
-    public void SetUpGame()
+    public void SetUpGame(int extraStonePlayer)
     {
         if(Players.size()==4)
         {
@@ -71,7 +72,7 @@ public class GameManager
         Collections.shuffle(StoneList);
         
         this.Okey = SelectOkey();
-        
+        DistributeTheStones(extraStonePlayer);
         }
         else
         {
@@ -136,6 +137,43 @@ public class GameManager
                 
             }
          return null;
+        
+    }
+    
+    //A fumction to distribute the stones to players
+    public void DistributeTheStones(int playerNumber)
+    {
+        String extraStonePlayer = Players.get(playerNumber).getPlayerName();
+        for(Iterator<Player> player = Players.iterator();player.hasNext();)
+        {
+            
+            if(player.next().getPlayerName() == extraStonePlayer)
+            {
+                player.next().setMyBoard(giveStone(15));
+                
+            }
+            else
+            {
+                player.next().setMyBoard(giveStone(14));
+            }
+            
+        }
+        
+        
+        
+    }
+    //This function returns 15 okeystones from stone arraylist also it deletes already distributed stones from StoneList array. 
+    private ArrayList<OkeyStone> giveStone(int stoneCount)
+    {
+        ArrayList<OkeyStone> temp = new ArrayList<>();
+        for(int i=0;i<stoneCount+1;i++)
+                {
+                    OkeyStone tempStone = StoneList.get(i);
+                    temp.add(tempStone);
+                    StoneList.remove(tempStone);
+                }
+        
+        return temp;
         
     }
             

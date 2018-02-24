@@ -12,9 +12,39 @@ import java.util.ArrayList;
  * @author ugurcan
  */
 public class Player {
-    public String PlayerName;
+    private String PlayerName;
+    private boolean extraStone;
+    private ArrayList<OkeyStone> myBoard = new ArrayList<>();
+    
+    public String getPlayerName() {
+        return PlayerName;
+    }
+
+    public boolean isExtraStone() {
+        return extraStone;
+    }
+
+    
+
+    public void setPlayerName(String PlayerName) {
+        this.PlayerName = PlayerName;
+    }
+
+    public void setExtraStone(boolean extraStone) {
+        this.extraStone = extraStone;
+    }
+
+    public void setMyBoard(ArrayList<OkeyStone> myBoard) {
+        this.myBoard = myBoard;
+    }
+
+    public ArrayList<OkeyStone> getMyBoard() {
+        return myBoard;
+    }
+
+    
    
-    private OkeyStone myBoard[] = new OkeyStone[15];
+    
 
     public Player(String Name) 
     {
