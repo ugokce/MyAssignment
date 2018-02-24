@@ -14,6 +14,22 @@ public class OkeyStone {
     private int Value;
     private boolean isOkey;
 
+    public Color getStoneColor() {
+        return StoneColor;
+    }
+
+    public int getValue() {
+        return Value;
+    }
+
+    public void setStoneColor(Color StoneColor) {
+        this.StoneColor = StoneColor;
+    }
+
+    public void setValue(int Value) {
+        this.Value = Value;
+    }
+
     public OkeyStone(Color rengi,int sayi) 
     {
         this.StoneColor = rengi;

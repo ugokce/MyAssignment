@@ -5,6 +5,7 @@
  */
 package myfirsttry;
 
+import com.sun.istack.internal.FinalArrayList;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,6 +53,7 @@ public class GameManager
     }
     public void SetUpGame(int extraStonePlayer)
     {
+       
         if(Players.size()==4)
         {
         
@@ -72,7 +74,18 @@ public class GameManager
         Collections.shuffle(StoneList);
         
         this.Okey = SelectOkey();
+        OkeyStone FakeOkeys[] = new OkeyStone[2];
+        FakeOkeys =findStone(Colors[4],0); 
+         FakeOkeys[0].setStoneColor(this.Okey[0].getTasRengi());
+         FakeOkeys[0].setValue(this.Okey[0].getDeger());
+         FakeOkeys[1].setStoneColor(this.Okey[0].getTasRengi());
+         FakeOkeys[1].setValue(this.Okey[0].getDeger());
         DistributeTheStones(extraStonePlayer);
+        
+            System.out.println("my color point is "+ColorPattern(Players.get(0).getMyBoard()));
+            System.out.println("my color point is "+ColorPattern(Players.get(1).getMyBoard()));
+            System.out.println("my color point is "+ColorPattern(Players.get(2).getMyBoard()));
+            System.out.println("my color point is "+ColorPattern(Players.get(3).getMyBoard()));
         }
         else
         {
@@ -104,7 +117,7 @@ public class GameManager
         
         
         OkeyStone RealOkey[]= new OkeyStone[2];
-        
+       
         
         //if our temp stone's value = 13 then our "Okey" must be 1, otherwise we can just take one bigger valued stone as "Okey"
         if(temp.getDeger()==13)
@@ -188,6 +201,60 @@ public class GameManager
                 }
         
         return temp;
+        
+    }
+    
+    public void FindTheWinner()
+    {
+        
+        for(int i=0;i<4;i++)
+        {
+            
+            
+            
+            
+        }
+        
+    }
+    
+    public int ColorPattern(ArrayList<OkeyStone> stoneList)
+    {
+        int point=0;
+        ArrayList<OkeyStone> myStones = stoneList;
+        //ArrayList<OkeyStone[]> EqualStones = new ArrayList<OkeyStone[]>();
+      
+        ArrayList<OkeyStone> EqualStones = new ArrayList<>();
+      
+        for(int i=0;i<myStones.size();i++)
+        {
+            int sayac=1;
+            OkeyStone temp = myStones.get(i);
+            EqualStones.add(temp);
+            for(int k=0;k<myStones.size();k++)
+            {
+               
+                if(temp.getDeger() == myStones.get(k).getDeger() && temp.getTasRengi().name != myStones.get(k).getTasRengi().name)
+                {
+                     EqualStones.add(myStones.get(k));
+                     sayac++;
+                    if(sayac>2)
+                    {
+                    point+= 10;
+                    
+                    }
+                }
+                
+            }
+            myStones.removeAll(EqualStones);
+           
+            
+        }
+        
+        for (int i = 0; i < EqualStones.size(); i++) 
+        {
+            System.out.print(" "+EqualStones.get(i).getTasRengi().name+" "+EqualStones.get(i).getDeger()+ " " );  
+        }
+        return point;
         
     }
             
