@@ -18,9 +18,7 @@ public class OkeyStone {
         return StoneColor;
     }
 
-    public int getValue() {
-        return Value;
-    }
+   
 
     public void setStoneColor(Color StoneColor) {
         this.StoneColor = StoneColor;

@@ -276,12 +276,12 @@ public class GameManager
         
         
        
-        return point+NumericPoint(myStones);
+        return point+NumericPoint(myStones,ColorStones);
         
     }
    
     
-    private int NumericPoint(ArrayList<OkeyStone> listToSort)
+    private int NumericPoint(ArrayList<OkeyStone> listToSort,ArrayList<OkeyStone> coloredList)
     {
         ArrayList<OkeyStone> temp = listToSort;
         OkeyStone colors[][] = new OkeyStone[4][15];
@@ -321,22 +321,34 @@ public class GameManager
           // colors[i][0]= tempStone;
             for(int j=0;j<temp.size();j++)
             {
-                if(tempStone.getTasRengi() == temp.get(j-counter).getTasRengi()||temp.get(j-counter).isIsOkey()==true)
+                if((tempStone.getTasRengi() == temp.get(j-counter).getTasRengi())||temp.get(j-counter).isIsOkey()==true)
                 {
                     //System.out.println(tempStone.getStoneColor().name+"="+temp.get(j-counter).getTasRengi().name);
+                    
                     colors[i][counter] = temp.get(j-counter);
+                    if(Math.abs(tempStone.getDeger()-temp.get(j-counter).getDeger())<2)
+                    {
+                        point +=10;
+                    }
                     temp.remove(temp.get(j-counter));
+                     
                     counter++;
-                    point += counter*10;
+                   
+                    
                 } 
             }
             
         }
-     /*/  for(int f=0;f<temp.size();f++)
+     
+      
+      ArrayList<OkeyStone> myBoard = temp;
+      
+      myBoard.addAll(coloredList);
+       for(int f=0;f<myBoard.size();f++)
        {
-           System.out.println(temp.get(f).getStoneColor().name+" "+temp.get(f).getDeger());
+           System.out.println(myBoard.get(f).getStoneColor().name+" "+myBoard.get(f).getDeger());
            
-       }/*/
+       }
         return point;
     }
     

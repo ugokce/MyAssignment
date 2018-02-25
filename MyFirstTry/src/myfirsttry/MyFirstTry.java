@@ -18,9 +18,9 @@ public class MyFirstTry {
        
         
         Player oyuncu1 = new Player("Ugurcan");
-        Player oyuncu2 = new Player("Oyuncu 2");
-        Player oyuncu3 = new Player("Oyuncu 3");
-        Player oyuncu4 = new Player("Oyuncu 4");
+        Player oyuncu2 = new Player("Ahmet");
+        Player oyuncu3 = new Player("Mehmet");
+        Player oyuncu4 = new Player("Hasan");
         
         
         GameManager OyunKontrol = new GameManager();
