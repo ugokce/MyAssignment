@@ -29,8 +29,12 @@ public class MyFirstTry {
         OyunKontrol.AddPlayer(oyuncu2);
         OyunKontrol.AddPlayer(oyuncu3);
         OyunKontrol.AddPlayer(oyuncu4);
+        
+        //this method creates Okey Stones,Shuffles them ,Picks a random "Okey",
+        //Distributes okey stones to each person,sort player boards according "Color" and "increasing" orders.
         OyunKontrol.SetUpGame(0);
        
+        OyunKontrol.FindTheWinner();
         
         
         

@@ -24,6 +24,8 @@ public class GameManager
     private ArrayList<Player> Players = new ArrayList<>();
 
     private OkeyStone Okey[]= new OkeyStone[2];
+    
+    private int points[] = new int[4];
 
     public int getOkeyValue() {
         return Okey[0].getDeger();
@@ -83,10 +85,8 @@ public class GameManager
         FakeOkeys[1].setValue(this.Okey[0].getDeger());
         DistributeTheStones(extraStonePlayer);
         
-            System.out.println(Players.get(0).getPlayerName()+"'s  point is "+PointPattern(Players.get(0).getMyBoard()));
-            System.out.println(Players.get(1).getPlayerName()+"'s  point is "+PointPattern(Players.get(1).getMyBoard()));
-            System.out.println(Players.get(2).getPlayerName()+"'s  point is "+PointPattern(Players.get(2).getMyBoard()));
-            System.out.println(Players.get(3).getPlayerName()+"'s  point is "+PointPattern(Players.get(3).getMyBoard()));
+        
+       
         }
         else
         {
@@ -208,21 +208,50 @@ public class GameManager
     public void FindTheWinner()
     {
         
+        int biggest=0;
+        int sayac=0;
         for(int i=0;i<4;i++)
         {
-            
-            
-            
-            
+        System.out.println("--------------------------------------------------------------------------------------------------");
+        points[i]=PointPattern(Players.get(i));
+        
+        if(points[i]>biggest)
+        {
+            biggest=points[i];
+            sayac= i;
         }
+        System.out.println(Players.get(i).getPlayerName()+" 's board point is "+points[i]);
+        
+        
+        }
+        System.out.println("--------------------------------------------------------------------------------------------------");
+        System.out.println("Best bord is "+Players.get(sayac).getPlayerName()+" 's Board ,with "+points[sayac]+" point ");
+        Players.get(sayac).PrintMyBoard();
+        System.out.println(" ");
+        
+        
+        
+        
+        
+        
+        
+       // System.out.println(Players.get(1).getPlayerName()+"'s  point is "+PointPattern(Players.get(1).getMyBoard()));
+        //System.out.println(Players.get(2).getPlayerName()+"'s  point is "+PointPattern(Players.get(2).getMyBoard()));
+        //System.out.println(Players.get(3).getPlayerName()+"'s  point is "+PointPattern(Players.get(3).getMyBoard()));
+        
+        
+        
+        
+        
+        
         
     }
     
-    public int PointPattern(ArrayList<OkeyStone> stoneList)
+    public int PointPattern(Player BoardOwner)
     {
         int point=0;
-        ArrayList<OkeyStone> myStones = stoneList;
-        //ArrayList<OkeyStone[]> EqualStones = new ArrayList<OkeyStone[]>();
+        ArrayList<OkeyStone> myStones = BoardOwner.getMyBoard();
+        
       
         ArrayList<OkeyStone> ColorStones = new ArrayList<>();
         ArrayList<OkeyStone> IncreasingStones = new  ArrayList<>();
@@ -241,8 +270,7 @@ public class GameManager
                 
                 if((temp.getDeger() == myStones.get(k).getDeger() && temp.getTasRengi() != myStones.get(k).getTasRengi())||(myStones.get(k).isIsOkey()))
                 {
-                    //System.out.println(temp.getTasRengi().name+" "+temp.getDeger()+" and "+myStones.get(k).getStoneColor().name+" "+myStones.get(k).getDeger());
-                     //ColorStones.add(myStones.get(k));
+                    
                      TempList.add(myStones.get(k));
                      sayac++;
                     if(sayac>2)
@@ -268,20 +296,16 @@ public class GameManager
             
         }
         
-       /*/ for (int i = 0; i < ColorStones.size(); i++) 
-        {
-            System.out.print(" "+ColorStones.get(i).getTasRengi().name+" "+ColorStones.get(i).getDeger()+ " " );  
-        }
-        /*/
+      
         
         
        
-        return point+NumericPoint(myStones,ColorStones);
+        return point+NumericPoint(myStones,ColorStones,BoardOwner);
         
     }
    
     
-    private int NumericPoint(ArrayList<OkeyStone> listToSort,ArrayList<OkeyStone> coloredList)
+    private int NumericPoint(ArrayList<OkeyStone> listToSort,ArrayList<OkeyStone> coloredList,Player BoardOwner)
     {
         ArrayList<OkeyStone> temp = listToSort;
         OkeyStone colors[][] = new OkeyStone[4][15];
@@ -305,12 +329,7 @@ public class GameManager
           
       }
       
-     /*/ for(int f=0;f<temp.size();f++)
-       {
-           System.out.println(temp.get(f).getStoneColor().name+" "+temp.get(f).getDeger());
-           
-       }
-      /*/
+     
       //creating groups by colors
       int point=0;
       for(int i=0;i<temp.size();i++)
@@ -343,12 +362,26 @@ public class GameManager
       
       ArrayList<OkeyStone> myBoard = temp;
       
-      myBoard.addAll(coloredList);
-       for(int f=0;f<myBoard.size();f++)
+       myBoard.addAll(coloredList);
+       for(int i=0;i<colors.length;i++)
+       {
+           for(int k=0;k<15;k++)
+           {
+               if(colors[i][k] != null)
+               {
+                   myBoard.add(colors[i][k]);
+               }
+               
+           }
+           
+       }
+       
+       BoardOwner.setMyBoard(myBoard);
+      /*/ for(int f=0;f<myBoard.size();f++)
        {
            System.out.println(myBoard.get(f).getStoneColor().name+" "+myBoard.get(f).getDeger());
            
-       }
+       }/*/
         return point;
     }
     

@@ -6,6 +6,7 @@
 package myfirsttry;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -22,6 +23,17 @@ public class Player {
 
     public boolean isExtraStone() {
         return extraStone;
+    }
+    
+    public void PrintMyBoard()
+    {
+       for(Iterator<OkeyStone> i=this.myBoard.iterator();i.hasNext();)
+       {
+           OkeyStone temp = i.next();
+           System.out.print("-"+temp.getTasRengi().name+" "+temp.getDeger());
+           
+       }
+        
     }
 
     
