@@ -74,18 +74,19 @@ public class GameManager
         Collections.shuffle(StoneList);
         
         this.Okey = SelectOkey();
+        
         OkeyStone FakeOkeys[] = new OkeyStone[2];
         FakeOkeys =findStone(Colors[4],0); 
-         FakeOkeys[0].setStoneColor(this.Okey[0].getTasRengi());
-         FakeOkeys[0].setValue(this.Okey[0].getDeger());
-         FakeOkeys[1].setStoneColor(this.Okey[0].getTasRengi());
-         FakeOkeys[1].setValue(this.Okey[0].getDeger());
+        FakeOkeys[0].setStoneColor(this.Okey[0].getTasRengi());
+        FakeOkeys[0].setValue(this.Okey[0].getDeger());
+        FakeOkeys[1].setStoneColor(this.Okey[0].getTasRengi());
+        FakeOkeys[1].setValue(this.Okey[0].getDeger());
         DistributeTheStones(extraStonePlayer);
         
-            System.out.println("my color point is "+ColorPattern(Players.get(0).getMyBoard()));
-            System.out.println("my color point is "+ColorPattern(Players.get(1).getMyBoard()));
-            System.out.println("my color point is "+ColorPattern(Players.get(2).getMyBoard()));
-            System.out.println("my color point is "+ColorPattern(Players.get(3).getMyBoard()));
+            System.out.println(Players.get(0).getPlayerName()+"'s  point is "+PointPattern(Players.get(0).getMyBoard()));
+            System.out.println(Players.get(1).getPlayerName()+"'s  point is "+PointPattern(Players.get(1).getMyBoard()));
+            System.out.println(Players.get(2).getPlayerName()+"'s  point is "+PointPattern(Players.get(2).getMyBoard()));
+            System.out.println(Players.get(3).getPlayerName()+"'s  point is "+PointPattern(Players.get(3).getMyBoard()));
         }
         else
         {
@@ -217,46 +218,129 @@ public class GameManager
         
     }
     
-    public int ColorPattern(ArrayList<OkeyStone> stoneList)
+    public int PointPattern(ArrayList<OkeyStone> stoneList)
     {
         int point=0;
         ArrayList<OkeyStone> myStones = stoneList;
         //ArrayList<OkeyStone[]> EqualStones = new ArrayList<OkeyStone[]>();
       
-        ArrayList<OkeyStone> EqualStones = new ArrayList<>();
-      
+        ArrayList<OkeyStone> ColorStones = new ArrayList<>();
+        ArrayList<OkeyStone> IncreasingStones = new  ArrayList<>();
+        ArrayList<OkeyStone> TempList = new ArrayList<>();
+        int sayac=1;
         for(int i=0;i<myStones.size();i++)
-        {
-            int sayac=1;
+        {   
+            TempList = new ArrayList<>();
+            sayac=1;
             OkeyStone temp = myStones.get(i);
-            EqualStones.add(temp);
+            
+            //ColorStones.add(temp);
+            TempList.add(temp);
             for(int k=0;k<myStones.size();k++)
             {
-               
-                if(temp.getDeger() == myStones.get(k).getDeger() && temp.getTasRengi().name != myStones.get(k).getTasRengi().name)
+                
+                if((temp.getDeger() == myStones.get(k).getDeger() && temp.getTasRengi() != myStones.get(k).getTasRengi())||(myStones.get(k).isIsOkey()))
                 {
-                     EqualStones.add(myStones.get(k));
+                    //System.out.println(temp.getTasRengi().name+" "+temp.getDeger()+" and "+myStones.get(k).getStoneColor().name+" "+myStones.get(k).getDeger());
+                     //ColorStones.add(myStones.get(k));
+                     TempList.add(myStones.get(k));
                      sayac++;
                     if(sayac>2)
                     {
-                    point+= 10;
+                    point+= 10*sayac;
                     
                     }
                 }
                 
             }
-            myStones.removeAll(EqualStones);
+            if(TempList.size()>2)
+            {
+               
+                for(int f=0;f<TempList.size();f++)
+                {
+                    ColorStones.add(TempList.get(f));
+                    
+                }
+            }
+           
+            myStones.removeAll(ColorStones);
            
             
         }
         
-        for (int i = 0; i < EqualStones.size(); i++) 
+       /*/ for (int i = 0; i < ColorStones.size(); i++) 
         {
-            System.out.print(" "+EqualStones.get(i).getTasRengi().name+" "+EqualStones.get(i).getDeger()+ " " );  
+            System.out.print(" "+ColorStones.get(i).getTasRengi().name+" "+ColorStones.get(i).getDeger()+ " " );  
         }
-        return point;
+        /*/
+        
+        
+       
+        return point+NumericPoint(myStones);
         
     }
+   
+    
+    private int NumericPoint(ArrayList<OkeyStone> listToSort)
+    {
+        ArrayList<OkeyStone> temp = listToSort;
+        OkeyStone colors[][] = new OkeyStone[4][15];
+      
+      //Sorting all list without any color criteria
+      
+      for(int g=temp.size()-1;g>0;g--)
+      {
+          for(int k=temp.size()-1;k>0;k--)
+          {
+              if(temp.get(g).getDeger()>temp.get(k).getDeger())
+              {
+                  
+              OkeyStone araci = temp.get(g);
+              temp.set(g, temp.get(k));
+              temp.set(k, araci);
+              
+              }
+              
+          }
+          
+      }
+      
+     /*/ for(int f=0;f<temp.size();f++)
+       {
+           System.out.println(temp.get(f).getStoneColor().name+" "+temp.get(f).getDeger());
+           
+       }
+      /*/
+      //creating groups by colors
+      int point=0;
+      for(int i=0;i<temp.size();i++)
+        {
+            
+           OkeyStone tempStone = temp.get(i);
+           int counter=0;
+          // colors[i][0]= tempStone;
+            for(int j=0;j<temp.size();j++)
+            {
+                if(tempStone.getTasRengi() == temp.get(j-counter).getTasRengi()||temp.get(j-counter).isIsOkey()==true)
+                {
+                    //System.out.println(tempStone.getStoneColor().name+"="+temp.get(j-counter).getTasRengi().name);
+                    colors[i][counter] = temp.get(j-counter);
+                    temp.remove(temp.get(j-counter));
+                    counter++;
+                    point += counter*10;
+                } 
+            }
+            
+        }
+     /*/  for(int f=0;f<temp.size();f++)
+       {
+           System.out.println(temp.get(f).getStoneColor().name+" "+temp.get(f).getDeger());
+           
+       }/*/
+        return point;
+    }
+    
+    
             
     
    
