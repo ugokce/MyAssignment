@@ -5,7 +5,7 @@
  */
 package myfirsttry;
 
-import com.sun.istack.internal.FinalArrayList;
+
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
