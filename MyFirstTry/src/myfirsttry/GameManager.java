@@ -176,13 +176,13 @@ public class GameManager
             {
                 
                 tempPlayer.setMyBoard(giveStone(15));
-                System.out.println("Fazlalık taşı"+ tempPlayer.getPlayerName()+" alıyor tam "+tempPlayer.getMyBoard().size()+ " taş" );
+                System.out.println("Fazlalık taşı "+ tempPlayer.getPlayerName()+" alıyor tam "+tempPlayer.getMyBoard().size()+ " taş" );
                 
             }
             else
             {
                  tempPlayer.setMyBoard(giveStone(14));
-                 System.out.println(tempPlayer.getPlayerName()+" tam "+tempPlayer.getMyBoard().size()+ " taş" );
+                 System.out.println(tempPlayer.getPlayerName()+" tam "+tempPlayer.getMyBoard().size()+ " taş alıyor" );
             }
             
         }
@@ -213,7 +213,7 @@ public class GameManager
         for(int i=0;i<4;i++)
         {
         System.out.println("--------------------------------------------------------------------------------------------------");
-        points[i]=PointPattern(Players.get(i));
+        points[i]=ColorPattern(Players.get(i));
         
         if(points[i]>biggest)
         {
@@ -227,27 +227,11 @@ public class GameManager
         System.out.println("--------------------------------------------------------------------------------------------------");
         System.out.println("Best bord is "+Players.get(sayac).getPlayerName()+" 's Board ,with "+points[sayac]+" point ");
         Players.get(sayac).PrintMyBoard();
-        System.out.println(" ");
-        
-        
-        
-        
-        
-        
-        
-       // System.out.println(Players.get(1).getPlayerName()+"'s  point is "+PointPattern(Players.get(1).getMyBoard()));
-        //System.out.println(Players.get(2).getPlayerName()+"'s  point is "+PointPattern(Players.get(2).getMyBoard()));
-        //System.out.println(Players.get(3).getPlayerName()+"'s  point is "+PointPattern(Players.get(3).getMyBoard()));
-        
-        
-        
-        
-        
-        
-        
+        System.out.println(" ");    
     }
-    
-    public int PointPattern(Player BoardOwner)
+    //we are grouping and calculating player points according to color pattern 
+    //for example "Kırmızı 4-Mavi 4-Siyah 4-Sarı 4" equals 40 points 
+    public int ColorPattern(Player BoardOwner)
     {
         int point=0;
         ArrayList<OkeyStone> myStones = BoardOwner.getMyBoard();
@@ -300,12 +284,12 @@ public class GameManager
         
         
        
-        return point+NumericPoint(myStones,ColorStones,BoardOwner);
+        return point+NumericPattern(myStones,ColorStones,BoardOwner);
         
     }
    
     
-    private int NumericPoint(ArrayList<OkeyStone> listToSort,ArrayList<OkeyStone> coloredList,Player BoardOwner)
+    private int NumericPattern(ArrayList<OkeyStone> listToSort,ArrayList<OkeyStone> coloredList,Player BoardOwner)
     {
         ArrayList<OkeyStone> temp = listToSort;
         OkeyStone colors[][] = new OkeyStone[4][15];
@@ -330,7 +314,8 @@ public class GameManager
       }
       
      
-      //creating groups by colors
+      //creating groups by colors and inreasing number for calculating points 
+      //for example "Red 1-Red 2-Red 3" means 30 points.
       int point=0;
       for(int i=0;i<temp.size();i++)
         {
